@@ -19,15 +19,15 @@ export default function Home() {
             
             <ul className="list">
                 <li>
-                    <tag>Url 1</tag>
+                    <tag>Shon!!</tag>
                     <button className="btn-red">url1-link</button>
                 </li>
                 <li>
-                    <tag>Url 2</tag>
+                    <tag>Shon!!</tag>
                     <button>url2-link</button>
                 </li>
                 <li>
-                    <tag>Url 3</tag>
+                    <tag>Shon!!</tag>
                     <button>url3-link</button>
                 </li>
             </ul>
