@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import "./Home.css"
 
 export default function Home() {
     const [email, setEmail] = useState("person@email.com");
@@ -15,10 +16,21 @@ export default function Home() {
                 <Form.Label>Welcome {email}!</Form.Label>
                 <br/>
             </Form>
-
-            <List>
-                {/* TODO */}
-            </List>
+            
+            <ul className="list">
+                <li>
+                    <tag>Url 1</tag>
+                    <button className="btn-red">url1-link</button>
+                </li>
+                <li>
+                    <tag>Url 2</tag>
+                    <button>url2-link</button>
+                </li>
+                <li>
+                    <tag>Url 3</tag>
+                    <button>url3-link</button>
+                </li>
+            </ul>
         </div>
     );
 }
