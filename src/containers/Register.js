@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import "./Register.css";
+import { useHistory } from 'react-router-dom';
 
 
-export default function Register() {
+
+export default function Register(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirmataion, setPasswordConfirmation] = useState("");
+    const history = useHistory();
+
 
     function validateForm() {
         return (email.length > 0
@@ -17,11 +20,15 @@ export default function Register() {
 
     function handleSubmit(event) {
         event.preventDefault();
+        
+        console.log("Register succses email: " + email + "password: " + password);
+        props.login(email);
+        history.push("/home")
     }
-
+    
     return (
-        <div className="Register">
-            <Form onSubmit={handleSubmit}>
+        <div className="d-flex justify-content-center">
+            <Form className="form" onSubmit={handleSubmit}>
                 <Form.Group size="lg" controlId="email">
                 <Form.Label>Email</Form.Label>
                 <Form.Control
@@ -55,6 +62,8 @@ export default function Register() {
                     type="submit" 
                     disabled={!validateForm()} 
                     variant="success"
+                    onClick={handleSubmit}
+
                 >
                     Apply
                 </Button>

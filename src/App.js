@@ -1,24 +1,46 @@
-import logo from './logo.svg';
+import React, {useState} from 'react';
+import TopNavbar from "./components/TopNavbar" 
+
+import Home from './containers/Home';
+import MyHome from './containers/MyHome';
+import Login from './containers/Login';
+import Register from './containers/Register';
+import NotFound404 from './containers/NotFound404';
+
+
 import './App.css';
 
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+
 function App() {
+  const [email, setEmail] = useState("")
+  console.log(`email->>>>>>`, email)
+  
+
+
+  const login = details => {
+    setEmail(details);
+  }
+
+  // const register = details => {
+  //   setEmail(details);
+  // }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.StrictMode>
+      <Router>
+        <TopNavbar></TopNavbar>
+        <Switch>
+          <Route exact path="/" component={() => <Home email={email}/>}/>
+          <Route exact path="/home" component={() => <Home email={email}/>}/>
+          <Route exact path="/myHome" component={() => <MyHome email={email}/>}/>
+          <Route exact path="/login" component={() => <Login login={login}/>}/>
+          <Route exact path="/register" component={() => <Register login={login}/>}/>
+          <Route exact path="/notFound404" component={NotFound404}/>
+          <Redirect to="/notFound404" />
+        </Switch>
+      </Router>
+    </React.StrictMode>
   );
 }
 
