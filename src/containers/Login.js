@@ -4,27 +4,30 @@ import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useHistory } from 'react-router-dom';
 
-
 export default function Login(props) {
-  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
 
   function validateForm() {
-    return email.length > 0 && password.length > 0;
+    return userName.length > 0 && password.length > 0;
   }
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    props.login(email);
-    // add tset password (back)
-    if (password==='123') {
-      console.log("login succses name is: ", email);
-      history.push("home")
-    } else {
-      console.log("Try Again");
-    }
+    fetch("http://localhost:8000/users"+ `?user=${userName}&password=${password}`)
+      .then(response => response.json())
+      .catch(error => console.error("Error:", error))
+      .then(response => {
+        console.log("Success:", JSON.stringify(response))
+        if(response.length > 0) {
+          props.login(response[0]);
+          history.push("home")
+        } else 
+          console.log("errr pasword....")
+      });
+
   }
 
  
@@ -33,13 +36,13 @@ export default function Login(props) {
   return (
     <div className="d-flex justify-content-center" >
       <Form className='form ' onSubmit={handleSubmit}>
-        <Form.Group size="lg" controlId="email">
-          <Form.Label>Email</Form.Label>
+        <Form.Group size="lg" controlId="userName">
+          <Form.Label>User Name</Form.Label>
           <Form.Control
             autoFocus
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
           />
         </Form.Group>
         <Form.Group size="lg" controlId="password">
@@ -70,4 +73,23 @@ export default function Login(props) {
   );
 }
 
-document.title = "VTM - Login";
+
+
+
+
+
+ // let data= {
+    //   "user": user,
+    //   "password": password
+    // }
+
+    // fetch("http://localhost:8000/users/", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(data),
+    //   })
+    //   .then(response => response.json())
+    //   .catch(error => console.error("Error:", error))
+    //   .then(response => console.log("Success:", JSON.stringify(response)))

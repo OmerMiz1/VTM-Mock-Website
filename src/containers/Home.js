@@ -4,12 +4,12 @@ import MyHome from "./MyHome"
 export default function Home(props) {
     return (
         <div>
-            {(props.email === "") ?
+            {(props.user == null) ?
             ( <div className="title">
                 <h1>This is Global Home Page</h1>
             </div> ) :
             <>
-                <MyHome email={props.email}></MyHome>
+                <MyHome user={props.user}></MyHome>
             </>}
             
         </div>

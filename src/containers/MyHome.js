@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import CardDeck from "react-bootstrap/CardDeck";
@@ -11,67 +11,64 @@ import CardArray from "../components/CardArray"
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function MyHome(props) {
-    const [summarys, setSummarys] = useState(props.email ==="shon"?
-    [
-        {
-            url: "https://us02web.zoom.us/rec/play/E38eBi_rfsgGCYhh6YiiutEw4pcsdCsHF2jy0sOMCfEAEzoFrb4z0IBnQLf5jgsMRxqULz7h-5fpc5S3.tLHdrPTcTXQ2n0Tz?continueMode=true&_x_zm_rtaid=8E8g3kSeQMGVoTvDaygrrQ.1603012922993.2fcaba7a7c5cc81110b378f2474fb863&_x_zm_rhtaid=614",
-            hashUrl: -1187954098,
-            title: "Zoom1",
-            autorName: "Shon4me",
-            createdTime: "2021-04-08T16:07:06.502Z",
-            editTime: "Fri Apr 09 2021 13:02:08 GMT+0300 (שעון ישראל (קיץ))",
-            tags: [
-                "zoom",
-                "learn"
-            ],
-            id: 2
+    
+    const [summaryIds, setSummaryIds] = useState([])
+    const [summarys, setSummarys] = useState([])
 
-        },
-        {
-            url: "https://us02web.zoom.us/rec/play/E38eBi_rfsgGCYhh6YiiutEw4pcsdCsHF2jy0sOMCfEAEzoFrb4z0IBnQLf5jgsMRxqULz7h-5fpc5S3.tLHdrPTcTXQ2n0Tz?continueMode=true&_x_zm_rtaid=8E8g3kSeQMGVoTvDaygrrQ.1603012922993.2fcaba7a7c5cc81110b378f2474fb863&_x_zm_rhtaid=614",
-            hashUrl: -1187954098,
-            title: "Zoom",
-            autorName: "Shon4me",
-            createdTime: "2021-04-08T16:07:06.502Z",
-            editTime: "Fri Apr 09 2021 13:02:08 GMT+0300 (שעון ישראל (קיץ))",
-            tags: [
-                "zoom",
-                "learn"
-            ],
-            id: 2
+
+    useEffect(() => {
+        const getSummarysId = async () => {
+            const summaryIdFromServer = await fetchSummaryId();
+            console.log("summaryIdFromServer->", summaryIdFromServer, summaryIdFromServer.summaysId);
+            if (summaryIdFromServer.summaysId == null) {
+                return
+            }
+            summaryIdFromServer.summaysId.length > 0 ? setSummaryIds(summaryIdFromServer.summaysId) : console.log("getSummarysId -> summaryIdFromServer is 0..") 
+
+           }
+           console.log("pros->", props, props.user);
+           props.user == null ? setSummarys([]) : getSummarysId();
+           
+    },[])
+
+
+    useEffect(() => {
+        const getSummarys = async () => {
+          const summaryFromServer = await fetchSummarys();
+          console.log(`11111111111111111summaryFromServer`, typeof summaryFromServer[0])
+          Object.keys(summaryFromServer[0]).length === 0 ? setSummarys([]) : setSummarys(summaryFromServer)
+
         }
-    ]:
-    [
-        {
-            url: "https://us02web.zoom.us/rec/play/E38eBi_rfsgGCYhh6YiiutEw4pcsdCsHF2jy0sOMCfEAEzoFrb4z0IBnQLf5jgsMRxqULz7h-5fpc5S3.tLHdrPTcTXQ2n0Tz?continueMode=true&_x_zm_rtaid=8E8g3kSeQMGVoTvDaygrrQ.1603012922993.2fcaba7a7c5cc81110b378f2474fb863&_x_zm_rhtaid=614",
-            hashUrl: -1187954098,
-            title: "else",
-            autorName: "Shon4me",
-            createdTime: "2021-04-08T16:07:06.502Z",
-            editTime: "Fri Apr 09 2021 13:02:08 GMT+0300 (שעון ישראל (קיץ))",
-            tags: [
-                "zoom",
-                "learn"
-            ],
-            id: 2
-        },
-        {
-            url: "https://us02web.zoom.us/rec/play/E38eBi_rfsgGCYhh6YiiutEw4pcsdCsHF2jy0sOMCfEAEzoFrb4z0IBnQLf5jgsMRxqULz7h-5fpc5S3.tLHdrPTcTXQ2n0Tz?continueMode=true&_x_zm_rtaid=8E8g3kSeQMGVoTvDaygrrQ.1603012922993.2fcaba7a7c5cc81110b378f2474fb863&_x_zm_rhtaid=614",
-            hashUrl: -1187954098,
-            title: "else2",
-            autorName: "Shon4me",
-            createdTime: "2021-04-08T16:07:06.502Z",
-            editTime: "Fri Apr 09 2021 13:02:08 GMT+0300 (שעון ישראל (קיץ))",
-            tags: [
-                "zoom",
-                "learn"
-            ],
-            id: 2
+        summaryIds.length > 0 ? getSummarys() : setSummarys(summarys) 
+      
+      },[summaryIds])
+      
+
+
+    const fetchSummaryId = async () => {
+        const response = await fetch("http://localhost:8000/library/"+ `${props.user.libraryId}`)
+        
+        const data = await response.json();
+        return data;
+      }
+
+
+
+    async function asyncForEach(array, callback) {
+        for (let index = 0; index < array.length; index++) {
+          await callback(array[index], index, array);
         }
-    ] 
-    );
+      }
 
-
+    const fetchSummarys = async () => {
+        var summaryArray = []
+        await asyncForEach(summaryIds, async (id) => {
+            const response = await fetch("http://localhost:8000/summarys/"+ `${id}`);
+            const data = await response.json();
+            summaryArray.push(data);
+        });
+        return summaryArray;
+    }
 
 
   return (
@@ -79,7 +76,7 @@ export default function MyHome(props) {
       <div>
         <h1>Home - VTM</h1>
         <br />
-        <h2>Welcome {props.email}!</h2>
+        <h2>Welcome {props.user.firstName} {props.user.lastName}!</h2>
       </div>
 
       <div className="secsion">

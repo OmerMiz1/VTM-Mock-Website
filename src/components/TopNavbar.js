@@ -5,8 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {Link } from "react-router-dom";
 
 
-
-const TopNavbar = () => {
+const TopNavbar = (props) => {
   return (
     <>
         <Navbar bg="dark" variant="dark">
@@ -17,8 +16,13 @@ const TopNavbar = () => {
                 <Nav.Link as={Link} to="/RedME">Readme</Nav.Link>
             </Nav>
             <Nav className="ml-auto">
+              {props.user == null ? 
+              <>
                 <Nav.Link as={Link} to="/Login">Login</Nav.Link>
                 <Nav.Link as={Link} to="/Register">Register</Nav.Link>
+              </> :
+              <Nav.Link onClick={() => props.logout()} as={Link} to="/home">Logout</Nav.Link>
+              }   
             </Nav>
         </Navbar>
     </>

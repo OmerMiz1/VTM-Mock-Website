@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import TopNavbar from "./components/TopNavbar" 
 
 import Home from './containers/Home';
@@ -13,27 +13,31 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 function App() {
-  const [email, setEmail] = useState("")
-  console.log(`email->>>>>>`, email)
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    console.log("email change!!!" , user);
+
+  }, [user])
   
 
 
   const login = details => {
-    setEmail(details);
+    setUser(details);
   }
 
-  // const register = details => {
-  //   setEmail(details);
-  // }
+  const logout = () => {
+    setUser(null);
+  }
+
 
   return (
     <React.StrictMode>
       <Router>
-        <TopNavbar></TopNavbar>
+        <TopNavbar user={user} logout={logout}></TopNavbar>
         <Switch>
-          <Route exact path="/" component={() => <Home email={email}/>}/>
-          <Route exact path="/home" component={() => <Home email={email}/>}/>
-          <Route exact path="/myHome" component={() => <MyHome email={email}/>}/>
+          <Route exact path="/" component={() => <Home user={user}/>}/>
+          <Route exact path="/home" component={() => <Home user={user}/>}/>
           <Route exact path="/login" component={() => <Login login={login}/>}/>
           <Route exact path="/register" component={() => <Register login={login}/>}/>
           <Route exact path="/notFound404" component={NotFound404}/>

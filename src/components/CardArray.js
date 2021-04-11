@@ -3,13 +3,19 @@ import Card from "react-bootstrap/Card";
 import CardDeck from "react-bootstrap/CardDeck";
 
 
-
 const CardArray = ((props) => {
 
-   console.log("->>>>>>>>>>>>>>  ",props.summarys)
+  const c = () => {
+    if(props.summarys.length > 0 ) {
+      console.log(`props.summarys.length`, props.summarys);
+      return cardsArray;
+    }
+  }
+  
 
-  const cardsArray = props.summarys.map(summary => (
-    <Card style={{ width: "14rem" }}>
+  const cardsArray =
+   props.summarys.map(summary => (
+    <Card style={{ width: "14rem" }} key={summary.id}>
       <Card.Body>
         <Card.Title>{summary.title}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{summary.tags}</Card.Subtitle>
@@ -25,7 +31,7 @@ const CardArray = ((props) => {
 
   return(
     <CardDeck className="card-deck">
-        {cardsArray}
+        {c()}
     </CardDeck>
   );
 } )
