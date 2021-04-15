@@ -1,12 +1,8 @@
 
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import CardDeck from "react-bootstrap/CardDeck";
-import zoomImg from "../img/zoom-345x160.jpg"
 
 import CardArray from "../components/CardArray"
-
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -35,7 +31,6 @@ export default function MyHome(props) {
     useEffect(() => {
         const getSummarys = async () => {
           const summaryFromServer = await fetchSummarys();
-          console.log(`11111111111111111summaryFromServer`, typeof summaryFromServer[0])
           Object.keys(summaryFromServer[0]).length === 0 ? setSummarys([]) : setSummarys(summaryFromServer)
 
         }
