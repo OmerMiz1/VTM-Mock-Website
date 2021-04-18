@@ -1,0 +1,7 @@
+{
+    "tableName": "Summary",
+    "partitionKeyName": "sid",
+    "partitionKeyType": "S",
+    "sortKeyName": "timeEdited",
+    "sortKeyType": "S"
+}

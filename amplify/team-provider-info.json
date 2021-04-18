@@ -1,0 +1,20 @@
+{
+  "vtmwebmock": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-vtmwebmock-vtmwebmock-191618-authRole",
+      "UnauthRoleArn": "arn:aws:iam::162619530879:role/amplify-vtmwebmock-vtmwebmock-191618-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::162619530879:role/amplify-vtmwebmock-vtmwebmock-191618-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-vtmwebmock-vtmwebmock-191618-deployment",
+      "UnauthRoleName": "amplify-vtmwebmock-vtmwebmock-191618-unauthRole",
+      "StackName": "amplify-vtmwebmock-vtmwebmock-191618",
+      "StackId": "arn:aws:cloudformation:eu-central-1:162619530879:stack/amplify-vtmwebmock-vtmwebmock-191618/69e26a50-a061-11eb-9164-068184e8f3e2",
+      "AmplifyAppId": "d2bwn394pbri6p"
+    },
+    "categories": {
+      "auth": {
+        "cognitoe953688e": {}
+      }
+    }
+  }
+}
