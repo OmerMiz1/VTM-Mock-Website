@@ -1,0 +1,48 @@
+{
+    "paths": [
+        {
+            "name": "/summary/{sid}",
+            "lambdaFunction": "summariesLambda",
+            "privacy": {
+                "protected": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ],
+                "unauth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH"
+                ]
+            },
+            "policyResourceName": "/summary/*"
+        }
+    ],
+    "resourceName": "summariesApi",
+    "apiName": "summariesApi",
+    "functionArns": [
+        {
+            "lambdaFunction": "summariesLambda"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 1,
+        "authRoleName": "amplify-vtmwebmock-vtmwebmock-191618-authRole",
+        "unAuthRoleName": "amplify-vtmwebmock-vtmwebmock-191618-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "summariesLambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
