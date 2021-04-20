@@ -8,7 +8,7 @@ import Login from './containers/Login';
 import Register from './containers/Register';
 import NotFound404 from './containers/NotFound404';
 import Amplify, { Auth } from 'aws-amplify';
-import awsconfig from './aws-exports';
+import awsconfig from './aws-exports.js';
 import './App.css';
 
 Amplify.configure(awsconfig);
