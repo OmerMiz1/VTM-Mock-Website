@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplify44e96ce6a5e44-staging-114105-authRole",
+      "UnauthRoleArn": "arn:aws:iam::162619530879:role/amplify-amplify44e96ce6a5e44-staging-114105-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::162619530879:role/amplify-amplify44e96ce6a5e44-staging-114105-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-amplify44e96ce6a5e44-staging-114105-deployment",
+      "UnauthRoleName": "amplify-amplify44e96ce6a5e44-staging-114105-unauthRole",
+      "StackName": "amplify-amplify44e96ce6a5e44-staging-114105",
+      "StackId": "arn:aws:cloudformation:eu-central-1:162619530879:stack/amplify-amplify44e96ce6a5e44-staging-114105/4acb30d0-a1cd-11eb-a109-0a082239d27a",
+      "AmplifyAppId": "d3e3yl93ladr7n"
+    },
+    "categories": {
+      "auth": {
+        "VTMMockWebsite": {}
+      }
+    }
+  }
+}

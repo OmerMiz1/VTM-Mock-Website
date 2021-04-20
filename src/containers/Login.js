@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useHistory } from 'react-router-dom';
+import { Auth } from "aws-amplify";
 
 export default function Login(props) {
   const [userName, setUserName] = useState("");
@@ -13,26 +14,18 @@ export default function Login(props) {
     return userName.length > 0 && password.length > 0;
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-
-    fetch("http://localhost:8000/users"+ `?user=${userName}&password=${password}`)
-      .then(response => response.json())
-      .catch(error => console.error("Error:", error))
-      .then(response => {
-        console.log("Success:", JSON.stringify(response))
-        if(response.length > 0) {
-          props.login(response[0]);
-          history.push("home")
-        } else 
-          console.log("errr pasword....")
-      });
-
+  
+    try {
+      await Auth.signIn(email, password);
+      alert("Logged in");
+    } catch (e) {
+      alert(e.message);
+    }
   }
 
  
-
-
   return (
     <div className="d-flex justify-content-center" >
       <Form className='form ' onSubmit={handleSubmit}>
