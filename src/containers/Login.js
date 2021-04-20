@@ -3,7 +3,9 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useHistory } from 'react-router-dom';
-import { Auth } from "aws-amplify";
+import { Auth, Logger } from "aws-amplify";
+
+const logger = new Logger('login')
 
 export default function Login(props) {
   const [userName, setUserName] = useState("");
@@ -16,16 +18,16 @@ export default function Login(props) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-  
+
     try {
       await Auth.signIn(userName, password);
       alert("Logged in");
     } catch (e) {
+      Logger.error('error happened', e);
       alert(e.message);
     }
   }
 
- 
   return (
     <div className="d-flex justify-content-center" >
       <Form className='form ' onSubmit={handleSubmit}>

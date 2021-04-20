@@ -21,7 +21,7 @@ export default function Register(props) {
     function handleSubmit(event) {
         event.preventDefault();
         
-        console.log("Register succses email: " + email + "password: " + password);
+        console.log("Register succses email: " + email + "password: " + password); //TODO remove
         props.login(email);
         history.push("/home")
     }
