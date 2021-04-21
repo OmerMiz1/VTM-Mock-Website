@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import React, {useState, useEffect} from 'react';
 import TopNavbar from "./components/TopNavbar" 
 
@@ -6,10 +7,11 @@ import MyHome from './containers/MyHome';
 import Login from './containers/Login';
 import Register from './containers/Register';
 import NotFound404 from './containers/NotFound404';
-
 import './App.css';
 
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import Amplify from 'aws-amplify';
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
 
 function App() {
   const [user, setUser] = useState(null)
