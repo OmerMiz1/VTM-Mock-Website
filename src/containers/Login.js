@@ -5,8 +5,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useHistory } from 'react-router-dom';
 import { Auth, Logger } from "aws-amplify";
 
-const logger = new Logger('login')
-
 export default function Login(props) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +21,6 @@ export default function Login(props) {
       await Auth.signIn(userName, password);
       alert("Logged in");
     } catch (e) {
-      Logger.error('error happened', e);
       alert(e.message);
     }
   }
