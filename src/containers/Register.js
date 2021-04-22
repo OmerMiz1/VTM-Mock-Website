@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useHistory } from 'react-router-dom';
+import { Auth } from 'aws-amplify';
 
 
 
@@ -18,11 +19,24 @@ export default function Register(props) {
                 && password === passwordConfirmataion);
     }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
-        
-        console.log("Register succses email: " + email + "password: " + password);
-        props.login(email);
+        let username = email;
+        try {
+            const { user } = await Auth.signUp({
+                username,
+                password,
+                attributes: {
+                    email,
+                },
+            });
+            console.log(user);
+        } catch (error) {
+            console.log('error signing up:', error);
+            return;
+        }
+        console.log("Register succses email: " + email + "password: " + password);  // TODO remove
+        props.login(email);  // TODO signin with Auth.signIn and update userObject (instead of email)
         history.push("/home")
     }
     

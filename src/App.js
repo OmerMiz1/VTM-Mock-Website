@@ -23,14 +23,13 @@ function App() {
   
 
 
-  const login = details => {
-    setUser(details);
+  const login = userObject => {
+    setUser(userObject);
   }
 
   const logout = () => {
     setUser(null);
   }
-
 
   return (
     <React.StrictMode>

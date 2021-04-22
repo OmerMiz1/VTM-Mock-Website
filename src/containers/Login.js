@@ -18,12 +18,14 @@ export default function Login(props) {
     event.preventDefault();
 
     try {
-      const user = await Auth.signIn(userName, password)
-      .then(response => {
+      let promise = await Auth.signIn(userName, password)
+      .then(user => {
         alert("Logged in");
-        props.login(response[0]);
-        history.push("home");
+        props.login(user);
+        history.push("/home");
+        console.log(user.getUsername());
       });
+      
       
     } catch (e) {
       alert(e.message);
