@@ -73,16 +73,19 @@
     }
   ],
   "notes": [],
-
-  "library":[
+  "library": [
     {
       "id": 20,
-      "summaysId": [10,11]
+      "summaysId": [
+        10,
+        11
+      ]
     },
     {
       "id": 21,
-      "summaysId": [1]
+      "summaysId": [
+        1
+      ]
     }
-    
-  ] 
+  ]
 }

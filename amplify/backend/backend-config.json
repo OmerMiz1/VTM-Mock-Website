@@ -6,5 +6,19 @@
       "dependsOn": [],
       "customAuth": false
     }
+  },
+  "storage": {
+    "Summaries": {
+      "service": "DynamoDB",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    },
+    "Notes": {
+      "service": "DynamoDB",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
   }
 }

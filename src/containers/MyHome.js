@@ -10,7 +10,6 @@ export default function MyHome(props) {
 	const [summaryIds, setSummaryIds] = useState([])
 	const [summarys, setSummarys] = useState([])
 
-
 	useEffect(() => {
 		const getSummarysId = async () => {
 			const summaryIdFromServer = await fetchSummaryId();
@@ -18,47 +17,44 @@ export default function MyHome(props) {
 			if (summaryIdFromServer.summaysId == null) {
 				return
 			}
-			summaryIdFromServer.summaysId.length > 0 ? setSummaryIds(summaryIdFromServer.summaysId) : console.log("getSummarysId -> summaryIdFromServer is 0..") 
+			summaryIdFromServer.summaysId.length > 0 ? setSummaryIds(summaryIdFromServer.summaysId) : console.log("getSummarysId -> summaryIdFromServer is 0..")
 
-		   }
-		   console.log("pros->", props, props.user);
-		   props.user == null ? setSummarys([]) : getSummarysId();
-		   
-	},[])
+		}
+		console.log("pros->", props, props.user);
+		props.user == null ? setSummarys([]) : getSummarysId();
+	}, [])
 
 
 	useEffect(() => {
 		const getSummarys = async () => {
-		  const summaryFromServer = await fetchSummarys();
-		  console.log(`11111111111111111summaryFromServer`, typeof summaryFromServer[0])
-		  Object.keys(summaryFromServer[0]).length === 0 ? setSummarys([]) : setSummarys(summaryFromServer)
+			const summaryFromServer = await fetchSummarys();
+			console.log(`summaryFromServer`, typeof summaryFromServer[0])
+			Object.keys(summaryFromServer[0]).length === 0 ? setSummarys([]) : setSummarys(summaryFromServer)
 
 		}
-		summaryIds.length > 0 ? getSummarys() : setSummarys(summarys) 
-	  
-	  },[summaryIds])
-	  
+		summaryIds.length > 0 ? getSummarys() : setSummarys(summarys)
 
+	}, [summaryIds])
 
 	const fetchSummaryId = async () => {
-		const response = await fetch("http://localhost:3000/library/"+ `${props.user.libraryId}`)
-		
+		const response = await fetch("http://localhost:3000/library/" + `${props.user.libraryId}`)
+
 		const data = await response.json();
 		return data;
-	  }
+	}
 
 
 
 	async function asyncForEach(array, callback) {
 		for (let index = 0; index < array.length; index++) {
-		  await callback(array[index], index, array);
+			await callback(array[index], index, array);
 		}
-	  }
+	}
 
 	const fetchSummarys = async () => {
 		var summaryArray = []
 		await asyncForEach(summaryIds, async (id) => {
-			const response = await fetch("http://localhost:3000/summarys/"+ `${id}`);
+			const response = await fetch("http://localhost:3000/summarys/" + `${id}`);
 			const data = await response.json();
 			summaryArray.push(data);
 		});
@@ -66,20 +62,20 @@ export default function MyHome(props) {
 	}
 
 
-  return (
-	<div className="title">
-	  <div>
-		<h1>Home - VTM</h1>
-		<br />
-		<h2>Welcome {props.user.firstName} {props.user.lastName}!</h2>
-	  </div>
+	return (
+		<div className="title">
+			<div>
+				<h1>Home - VTM</h1>
+				<br />
+				<h2>Welcome {props.user.firstName} {props.user.lastName}!</h2>
+			</div>
 
-	  <div className="secsion">
-		<Button className="d-flex" >Add Summary</Button>
-	  </div>
+			<div className="secsion">
+				<Button className="d-flex" >Add Summary</Button>
+			</div>
 
-	  <CardArray summarys={summarys}/>
-	  
-	</div>
-  );
+			<CardArray summarys={summarys} />
+
+		</div>
+	);
 }

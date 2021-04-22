@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-import React, {useState, useEffect} from 'react';
-import TopNavbar from "./components/TopNavbar" 
+import React, { useState, useEffect } from 'react';
+import TopNavbar from "./components/TopNavbar"
 
 import Home from './containers/Home';
 import MyHome from './containers/MyHome';
@@ -9,43 +9,44 @@ import Register from './containers/Register';
 import NotFound404 from './containers/NotFound404';
 import './App.css';
 
-import Amplify from 'aws-amplify';
-import awsconfig from './aws-exports';
-Amplify.configure(awsconfig);
+import Amplify, { Auth } from 'aws-amplify';
+import awsmobile from './aws-exports';
+Amplify.configure(awsmobile);
 
 function App() {
-  const [user, setUser] = useState(null)
+	const [user, setUser] = useState(null)
 
-  useEffect(() => {
-    console.log("email change!!!" , user);
+	const login = userObject => {
+		setUser(userObject);
+	}
 
-  }, [user])
-  
+	const logout = async () => {
+		try {
+			await Auth.signOut()
+				.then(response => {
+					setUser(null)
+				});
+			;
+		} catch (error) {
+			console.log('error sigining out: ', error);
+		}
+	}
 
-
-  const login = userObject => {
-    setUser(userObject);
-  }
-
-  const logout = () => {
-    setUser(null);
-  }
-
-  return (
-    <React.StrictMode>
-      <Router>
-        <TopNavbar user={user} logout={logout}></TopNavbar>
-        <Switch>
-          <Route exact path="/" component={() => <Home user={user}/>}/>
-          <Route exact path="/home" component={() => <Home user={user}/>}/>
-          <Route exact path="/login" component={() => <Login login={login}/>}/>
-          <Route exact path="/register" component={() => <Register login={login}/>}/>
-          <Route exact path="/notFound404" component={NotFound404}/>
-          <Redirect to="/notFound404" />
-        </Switch>
-      </Router>
-    </React.StrictMode>
-  );
+	return (
+		<React.StrictMode>
+			<Router>
+				<TopNavbar user={user} logout={logout}></TopNavbar>
+				<Switch>
+					<Route exact path="/" component={() => <Home user={user} />} />
+					<Route exact path="/home" component={() => <Home user={user} />} />
+					<Route exact path="/login" component={() => <Login login={login} />} />
+					<Route exact path="/register" component={() => <Register login={login} />} />
+					<Route exact path="/notFound404" component={NotFound404} />
+					<Redirect to="/notFound404" />
+				</Switch>
+			</Router>
+		</React.StrictMode>
+	);
 }
 
 export default App;

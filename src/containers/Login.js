@@ -1,11 +1,12 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useHistory } from 'react-router-dom';
 import { Auth, Logger } from "aws-amplify";
+import { withAuthenticator } from 'aws-amplify-react';
 
-export default function Login(props) {
+const Login = (props) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
@@ -18,15 +19,13 @@ export default function Login(props) {
     event.preventDefault();
 
     try {
-      let promise = await Auth.signIn(userName, password)
-      .then(user => {
-        alert("Logged in");
-        props.login(user);
-        history.push("/home");
-        console.log(user.getUsername());
-      });
-      
-      
+      await Auth.signIn(userName, password)
+        .then(user => {
+          alert("Logged in");
+          props.login(user);
+          history.push("/home");
+          console.log(user.getUsername());
+        });
     } catch (e) {
       alert(e.message);
     }
@@ -52,16 +51,16 @@ export default function Login(props) {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Button 
+        <Button
           block size="lg"
-          type="submit" 
-          disabled={!validateForm()} 
+          type="submit"
+          disabled={!validateForm()}
           variant="success"
           onClick={handleSubmit}
         >
           Login
-        </Button>        
-        <Button 
+        </Button>
+        <Button
           block size="lg"
           variant="primary"
         >
@@ -71,6 +70,8 @@ export default function Login(props) {
     </div>
   );
 }
+
+export default withAuthenticator(Login); // not realy necesary atm
 
 
 
