@@ -10,8 +10,8 @@ import NotFound404 from './containers/NotFound404';
 import './App.css';
 
 import Amplify, { Auth } from 'aws-amplify';
-import awsmobile from './aws-exports';
-Amplify.configure(awsmobile);
+// import awsmobile from './aws-exports';
+// Amplify.configure(awsmobile);
 
 function App() {
 	const [user, setUser] = useState(null)
