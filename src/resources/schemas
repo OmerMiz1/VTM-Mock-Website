@@ -1,0 +1,45 @@
+Types & Other:
+	date_string: "dd/mm/yyyy"
+	hash_string: hash(string)
+	html_string: HTML content
+	time_string: "HH:mm:ss"
+	
+	uid: user_id
+	sid: summary_id
+	lid: library_id
+
+Tables:
+	Summaries: Summary
+	Users: User
+	Library: 
+		
+JSONs:
+	Summary: 
+		sid: hash_string,
+		url: string,
+		notes: [Note],
+		tag: [string],
+		title: string,
+		author: string,
+		created: date_string,
+		modified: date_string
+
+	Note:
+		nid: hash_string,
+		sid: hash_string,
+		title: string,
+		content: html_string,
+		tag: string,
+		time: time_string,
+		?time_sec: int
+
+	? users: {
+		uid: hash_string
+		lid: [hash_string]
+		
+		
+		? name: string
+		? lastName: string
+		? email: string
+		? birth: date_string 
+	}
