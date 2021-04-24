@@ -8,10 +8,22 @@ import Login from './containers/Login';
 import Register from './containers/Register';
 import NotFound404 from './containers/NotFound404';
 import './App.css';
-
 import Amplify, { Auth } from 'aws-amplify';
 // import awsmobile from './aws-exports';
+
+// Fix configuration only locally - not during deployment.
 // Amplify.configure(awsmobile);
+
+// var aws_exports
+// try {
+// 	aws_exports = require('./aws-exports')
+// } catch(_) {
+// 	aws_exports = null
+// }
+
+// if(aws_exports) {
+// 	Amplify.configure(aws_exports.awsmobile)
+// }
 
 function App() {
 	const [user, setUser] = useState(null)
