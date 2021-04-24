@@ -71,7 +71,8 @@ const Login = (props) => {
   );
 }
 
-export default withAuthenticator(Login); // not realy necesary atm
+// export default withAuthenticator(Login); // not realy necesary atm
+export default Login;
 
 
 
